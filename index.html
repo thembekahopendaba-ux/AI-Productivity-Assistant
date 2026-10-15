@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Productivity Assistant</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f5f9;
+      margin: 0;
+      padding: 20px;
+      color: #1e293b;
+    }
+    .container {
+      max-width: 700px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px;
+      border-radius: 16px;
+      box-shadow: 0 4px 15px #0001;
+    }
+    h1 { color: #4f46e5; }
+    label { display: block; margin-top: 18px; font-weight: bold; }
+    select, textarea, button {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 12px;
+      margin-top: 8px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    select, textarea { border: 1px solid #cbd5e1; }
+    textarea { min-height: 140px; }
+    button {
+      background: #4f46e5;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    button:hover { background: #3730a3; }
+    #result {
+      background: #eef2ff;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 8px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .note { color: #64748b; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>AI Productivity Assistant</h1>
+    <p>Organize your work with simple productivity tools.</p>
+
+    <label for="task">Choose a tool</label>
+    <select id="task">
+      <option value="email">Email Generator</option>
+      <option value="meeting">Meeting Summarizer</option>
+      <option value="planning">Task Planner</option>
+      <option value="research">Research Assistant</option>
+      <option value="chat">Chatbot Helper</option>
+    </select>
+
+    <label for="details">Enter your information</label>
+    <textarea id="details" placeholder="Type your email topic, meeting notes, tasks, or question..."></textarea>
+
+    <button onclick="generate()">Generate Result</button>
+    <div id="result" aria-live="polite">Your result will appear here.</div>
+    <p class="note">Demo version: results are generated using templates, not a live AI connection.</p>
+  </div>
+
+  <script>
+    function generate() {
+      const task = document.getElementById("task").value;
+      const details = document.getElementById("details").value.trim();
+      const result = document.getElementById("result");
+
+      if (!details) {
+        result.textContent = "Please enter some information first.";
+        return;
+      }
+
+      const templates = {
+        email: "Subject: Follow-up\n\nDear [Recipient],\n\nI am writing regarding " +
+          details + ". Please let me know if you need any further information.\n\nKind regards,\n[Your Name]",
+        meeting: "MEETING SUMMARY\n\nMain points:\n" + details +
+          "\n\nAction items:\n- Review the main points\n- Agree on next steps\n- Confirm responsibilities",
+        planning: "TASK PLAN\n\n" + details +
+          "\n\nSuggested steps:\n1. Identify the most urgent task.\n2. Break it into smaller steps.\n3. Set a deadline for each step.\n4. Review your progress.",
+        research: "RESEARCH PLAN\n\nTopic: " + details +
+          "\n\n1. Define the main question.\n2. Find reliable sources.\n3. Compare the evidence.\n4. Summarize your findings and verify facts.",
+        chat: "RESPONSE DRAFT\n\nYou asked about: " + details +
+          "\n\nConsider the key details, identify what you need to know, and check reliable sources before making important decisions."
+      };
+
+      result.textContent = templates[task];
+    }
+  </script>
+</body>
+</html>
